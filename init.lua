@@ -248,57 +248,12 @@ minetest.register_on_player_receive_fields(
 
 minetest.register_chatcommand("devpos",
     {
-        params = "<action> <name>",  
-        description = "load/save/list/delete current player positioning. <action> is load/save/list/delete, <name> is the name of the saved positioning",
+        params = "",
+        description = "Open dev positioning formspec",
         privs = { server=true },
         func = function(player_name, param)
-			local action, name = param:match("([^ ]+)[ ]*(.*[^ ])")
-			if not action or action == "" then
-				show_formspec(player_name)
-				return true
-			end
-
-			if action == "list" then
-				local positionings = load_positionings(player_name)
-				minetest.chat_send_player(player_name, "Saved positionings:")
-				for name, _ in pairs(positionings) do
-					minetest.chat_send_player(player_name, name)
-				end
-				return true
-			end
-
-			if action ~= "save" and action ~= "load" and action ~= "delete" then
-				return false, "\""..action.."\" is not a valid action."
-			end
-
-			if action == "save" then
-				local positionings = load_positionings(player_name)
-				if positionings[name] then
-					return false, "A positioning named \"" .. name .. "\" already exists."
-				end
-				positionings[name] = get_positioning(player_name)
-				save_positionings(player_name, positionings)		
-				return true, "Positioning saved as \"" .. name .. "\"."
-			end
-			
-			if action == "load" then
-				local positionings = load_positionings(player_name)
-				if not positionings[name] then
-					return false, "No positioning named \"" .. name .. "\" saved."
-				end
-				set_positioning(player_name, positionings[name])
-				return true, "Positioning \"" .. name .. "\" restored."
-			end
-
-			if action == "delete" then
-				local positionings = load_positionings(player_name)
-				if not positionings[name] then
-					return false, "No positioning named \"" .. name .. "\" saved."
-				end
-				positionings[name] = nil
-				save_positionings(player_name, positionings)
-				return true, "Positioning \"" .. name .. "\" deleted."
-			end
+			show_formspec(player_name)
+			return true
 		end
     })
     
