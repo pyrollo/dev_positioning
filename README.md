@@ -13,7 +13,7 @@ It allows to precisely adjust position, look direction and field of view, and sa
 
 **License**: MIT License
 
-**See also**: [Minetest forum thread](https://forum.minetest.net/)
+**See also**: [Minetest forum thread](https://forum.minetest.net/viewtopic.php?t=25249)
 
 ## How to use this mod
 
